@@ -33,21 +33,19 @@ app.use(function validateBearerToken(req, res, next) {
 function handleGetMovie(req, res) {
     let response = MOVIEDEX;
 
-/* POKEDEX COPIED CODE
-    // filter our pokemon by name, case-insensitive, if name param is present
-    if (req.query.name) {
-        response = response.filter(pokemon =>
-            pokemon.name.toLowerCase().includes(req.query.name.toLowerCase())
+    // Handle genre filter
+    if (req.query.genre) {
+        response = response.filter(movie =>
+            movie.genre.toLowerCase().includes(req.query.genre.toLowerCase())
         )
     }
-    
-    // filter our pokemon by type if type query param is present
-    if (req.query.type) {
-        response = response.filter(pokemon =>
-            pokemon.type.includes(req.query.type)
+
+    // Handle country filter
+    if (req.query.country) {
+        response = response.filter(movie =>
+            movie.country.toLowerCase().includes(req.query.country.toLowerCase())
         )
     }
-*/
 
     res.json(response);
 };
