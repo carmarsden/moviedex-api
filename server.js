@@ -24,12 +24,6 @@ app.use(function validateBearerToken(req, res, next) {
 
 
 // GET MOVIES
-// The search options for genre, country, and/or average vote are provided in query string parameters.
-// When searching by genre, users are searching for whether the Movie's genre includes a specified string. The search should be case insensitive.
-// When searching by country, users are searching for whether the Movie's country includes a specified string. The search should be case insensitive.
-// When searching by average vote, users are searching for Movies with an avg_vote that is greater than or equal to the supplied number.
-// The API responds with an array of full movie entries for the search results
-
 function handleGetMovie(req, res) {
     let response = MOVIEDEX;
 
@@ -44,6 +38,14 @@ function handleGetMovie(req, res) {
     if (req.query.country) {
         response = response.filter(movie =>
             movie.country.toLowerCase().includes(req.query.country.toLowerCase())
+        )
+    }
+
+    // Handle avg_vote filter
+    if (req.query.avg_vote) {
+        const minVote = Number(req.query.avg_vote);
+        response = response.filter(movie =>
+            Number(movie.avg_vote) >= minVote
         )
     }
 
